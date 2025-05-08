@@ -53,31 +53,92 @@ internal static class Program
                 Array.Copy(e.Buffer, bufferMono, e.BytesRecorded);
             }
 
-            if (recognizerPt.AcceptWaveform(bufferMono, bufferMono.Length))
+            Task taskPt = Task.Run(() =>
             {
-                var voskResultPt = new VoskResult(recognizerPt.Result());
-                voskResultPt.RemoveDiacritics();
-                Console.WriteLine(voskResultPt.Text);
-                
-                if (voskResultPt.Text.Contains("invisivel", StringComparison.OrdinalIgnoreCase))
+                if (recognizerPt.AcceptWaveform(bufferMono, bufferMono.Length))
                 {
-                    audioPlayer.Play("invisible.wav");
-                    ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
+                    var voskResultPt = new VoskResult(recognizerPt.Result());
+                    voskResultPt.RemoveDiacritics();
+                    Console.WriteLine(voskResultPt.Text);
+            
+                    if (voskResultPt.Text.Contains("invisivel", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultPt.Text.Contains("cobra", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultPt.Text.Contains("solido", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultPt.Text.Contains("liquido", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("invisible.wav");
+                        ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
+                    } 
+                    else if (voskResultPt.Text.Contains("invencivel", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("areyousure.wav");
+                        ImageOpener.OpenImage("https://media.tenor.com/gMFriGOwj0YAAAAM/invincible-are-you-sure.gif");
+                    }
+                    else if (voskResultPt.Text.Contains("demonio", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultPt.Text.Contains("chorar", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultPt.Text.Contains("dante", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("devil.wav");
+                        ImageOpener.OpenImage("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FEzbCji6UcAkiB-Q.jpg&f=1&nofb=1&ipt=cd1042e28c261d3123f6c0901cff5a4394dff62ca27f9c1b4024039c3ba96c0c");
+                    }
+                    else if (voskResultPt.Text.Contains("tempestade", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultPt.Text.Contains("luz", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultPt.Text.Contains("aproxima", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultPt.Text.Contains("vergil", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultPt.Text.Contains("virgil", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("bury.wav");
+                        ImageOpener.OpenImage("https://i.kym-cdn.com/entries/icons/original/000/046/343/berried_delight.jpg");
+                    }
                 }
-            }
-                
-            if (recognizerEn.AcceptWaveform(bufferMono, bufferMono.Length))
+            });
+
+            Task taskEn = Task.Run(() =>
             {
-                var voskResultEn = new VoskResult(recognizerEn.Result());
-                voskResultEn.RemoveDiacritics();
-                Console.WriteLine(voskResultEn.Text);
-                
-                if (voskResultEn.Text.Contains("invisible", StringComparison.OrdinalIgnoreCase))
+                if (recognizerEn.AcceptWaveform(bufferMono, bufferMono.Length))
                 {
-                    audioPlayer.Play("invisible.wav");
-                    ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
+                    var voskResultEn = new VoskResult(recognizerEn.Result());
+                    voskResultEn.RemoveDiacritics();
+                    Console.WriteLine(voskResultEn.Text);
+
+                    if (voskResultEn.Text.Contains("invisible", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultEn.Text.Contains("snake", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultEn.Text.Contains("solid", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultEn.Text.Contains("liquid", StringComparison.OrdinalIgnoreCase) ||
+                        voskResultEn.Text.Contains("boss", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("invisible.wav");
+                        ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
+                    }
+                    else if (voskResultEn.Text.Contains("sure", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultEn.Text.Contains("invincible", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("areyousure.wav");
+                        ImageOpener.OpenImage("https://media.tenor.com/gMFriGOwj0YAAAAM/invincible-are-you-sure.gif");
+                    }
+                    else if (voskResultEn.Text.Contains("devil", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultEn.Text.Contains("may", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultEn.Text.Contains("cry", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultEn.Text.Contains("dante", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("devil.wav");
+                        ImageOpener.OpenImage("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FEzbCji6UcAkiB-Q.jpg&f=1&nofb=1&ipt=cd1042e28c261d3123f6c0901cff5a4394dff62ca27f9c1b4024039c3ba96c0c");
+                    }
+                    else if (voskResultEn.Text.Contains("bury", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultEn.Text.Contains("barry", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultEn.Text.Contains("light", StringComparison.OrdinalIgnoreCase) || 
+                             voskResultEn.Text.Contains("storm", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultEn.Text.Contains("vergil", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultEn.Text.Contains("virgil", StringComparison.OrdinalIgnoreCase) ||
+                             voskResultEn.Text.Contains("approaching", StringComparison.OrdinalIgnoreCase))
+                    {
+                        audioPlayer.Play("bury.wav");
+                        ImageOpener.OpenImage("https://i.kym-cdn.com/entries/icons/original/000/046/343/berried_delight.jpg");
+                    }
                 }
-            }
+            });
+            
+            Task.WaitAll(taskPt, taskEn);
         };
 
         waveIn.StartRecording();
