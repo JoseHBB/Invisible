@@ -7,10 +7,13 @@ internal static class Program
 {
     static void Main(string[] args)
     {
+        #if DEBUG
         var projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
-        
+        #else
+        var projectRoot = Path.GetFullPath(AppContext.BaseDirectory);
+        #endif
         var audioPlayer = new AudioPlayer();
-        
+            
         var modelPathPt = Path.Combine(projectRoot, "models", "vosk-pt");
         var modelPathEn = Path.Combine(projectRoot, "models", "vosk-en");
 
@@ -59,6 +62,7 @@ internal static class Program
                 if (voskResultPt.Text.Contains("invisivel", StringComparison.OrdinalIgnoreCase))
                 {
                     audioPlayer.Play("invisible.wav");
+                    ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
                 }
             }
                 
@@ -71,6 +75,7 @@ internal static class Program
                 if (voskResultEn.Text.Contains("invisible", StringComparison.OrdinalIgnoreCase))
                 {
                     audioPlayer.Play("invisible.wav");
+                    ImageOpener.OpenImage("https://media.tenor.com/3t_DdMd5vYwAAAAM/metal-gear.gif");
                 }
             }
         };
