@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="NAudio" Version="2.2.1" />
+      <PackageReference Include="System.Windows.Extensions" Version="9.0.4" />
       <PackageReference Include="Vosk" Version="0.3.38" />
     </ItemGroup>
 

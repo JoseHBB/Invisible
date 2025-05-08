@@ -3,13 +3,14 @@ using Vosk;
 
 namespace ConsoleBase;
 
-internal class Program
+internal static class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Current Directory: " + Environment.CurrentDirectory);
-
         var projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        
+        var audioPlayer = new AudioPlayer();
+        
         var modelPathPt = Path.Combine(projectRoot, "models", "vosk-pt");
         var modelPathEn = Path.Combine(projectRoot, "models", "vosk-en");
 
@@ -50,10 +51,28 @@ internal class Program
             }
 
             if (recognizerPt.AcceptWaveform(bufferMono, bufferMono.Length))
-                Console.WriteLine(recognizerPt.Result());
+            {
+                var voskResultPt = new VoskResult(recognizerPt.Result());
+                voskResultPt.RemoveDiacritics();
+                Console.WriteLine(voskResultPt.Text);
+                
+                if (voskResultPt.Text.Contains("invisivel", StringComparison.OrdinalIgnoreCase))
+                {
+                    audioPlayer.Play("invisible.wav");
+                }
+            }
                 
             if (recognizerEn.AcceptWaveform(bufferMono, bufferMono.Length))
-                Console.WriteLine(recognizerEn.Result());
+            {
+                var voskResultEn = new VoskResult(recognizerEn.Result());
+                voskResultEn.RemoveDiacritics();
+                Console.WriteLine(voskResultEn.Text);
+                
+                if (voskResultEn.Text.Contains("invisible", StringComparison.OrdinalIgnoreCase))
+                {
+                    audioPlayer.Play("invisible.wav");
+                }
+            }
         };
 
         waveIn.StartRecording();
